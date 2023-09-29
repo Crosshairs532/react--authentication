@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
+import { Link } from "react-router-dom";
 const Register = () => {
     const [regError, setError] = useState('')
     const [success, setSuccess] = useState('')
@@ -63,7 +64,9 @@ const Register = () => {
                     <label htmlFor="terms" >Accept terms and condition</label>
                     <br />
                     <input className=" mb-3 w-1/4 p-3 bg-emerald-950 text-white" type="submit" value="Register" />
-
+                    {
+                        <p>Already Registered? <Link to='/login'>Login in</Link></p>
+                    }
                 </form>
                 {
                     regError && <p>{regError}</p>
