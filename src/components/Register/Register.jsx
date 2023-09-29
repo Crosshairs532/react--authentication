@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
@@ -48,6 +48,7 @@ const Register = () => {
                 console.log(error)
                 setError(error.message)
             })
+
     }
     return (
         <div>

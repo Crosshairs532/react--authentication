@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
@@ -37,6 +37,7 @@ const Hero = () => {
             .then(rslt => {
                 console.log(rslt)
                 setSuccess('successfully addeed')
+                updateProfile(rslt.user, { displayName: name, photoURL: '' })
                 sendEmailVerification(rslt.user)
                     .then(() => alert('please varify your email'))
                     .catch(error => console.log(error.message))
@@ -65,6 +66,12 @@ const Hero = () => {
                                         <span className="label-text">Email</span>
                                     </label>
                                     <input type="text" placeholder="email" name='email' className="input input-bordered" />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Your Name</span>
+                                    </label>
+                                    <input type="text" placeholder="name" name='name' className="input input-bordered" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
