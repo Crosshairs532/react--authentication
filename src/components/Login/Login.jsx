@@ -1,4 +1,4 @@
-import { sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import { sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -14,11 +14,21 @@ const Login = () => {
         setLog('')
         setError('')
         signInWithEmailAndPassword(auth, email, password)
-            .then(rslt => { setLog('succesfully logges in') })
+            .then(rslt => {
+                if (rslt.user.emailVerified) {
+                    alert('you are varied you may log in')
+                    setLog('succesfully logges in')
+                }
+                else {
+                    alert('you are not varified. please varofy yourself')
+                }
+
+            })
             .catch(er => setError('cannot logged in'))
     }
     const handleforgetpass = () => {
         const email = emailref.current.value;
+        console.log(email)
         if (!email) {
             alert('provide and email')
             return;
@@ -27,9 +37,11 @@ const Login = () => {
             alert('write a valid email')
             return
         }
-        sendEmailVerification(auth, email)
-            .then(rslt => alert('check you mail'))
-            .catch(error => console.log(error))
+        else {
+            sendPasswordResetEmail(auth, email)
+                .then(() => alert('check mail'))
+                .catch(error => console.log(error))
+        }
     }
 
 

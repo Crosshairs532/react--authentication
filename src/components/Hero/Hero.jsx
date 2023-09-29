@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
@@ -37,6 +37,9 @@ const Hero = () => {
             .then(rslt => {
                 console.log(rslt)
                 setSuccess('successfully addeed')
+                sendEmailVerification(rslt.user)
+                    .then(() => alert('please varify your email'))
+                    .catch(error => console.log(error.message))
 
             })
             .catch(error => {
