@@ -23,11 +23,16 @@ const Register = () => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const accepted = e.target.terms.checked;
         setError('')
         setSuccess('')
         if (!/[A-Z]/.test(password)) {
             setError('your pass should include an uppercase')
             return;
+        }
+        else if (!accepted) {
+            setError('accept the terms and conditions');
+            return
         }
 
 
@@ -53,6 +58,9 @@ const Register = () => {
                     <div className=" flex items-center">
                         <input className=" mb-3 w-full p-3" type={`${txt}`} name="password" id="" placeholder="enter password...." />
                         <span onClick={() => handletoggle(!tg)} >{tg ? <AiFillEyeInvisible></AiFillEyeInvisible> : <AiFillEye></AiFillEye>} </span></div>
+                    <br />
+                    <input type="checkbox" name='terms' id='terms' />
+                    <label htmlFor="terms" >Accept terms and condition</label>
                     <br />
                     <input className=" mb-3 w-1/4 p-3 bg-emerald-950 text-white" type="submit" value="Register" />
 
